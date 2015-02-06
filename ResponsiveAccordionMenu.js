@@ -5,9 +5,9 @@ $(window).load(function() {
 	
 	// hide all divs initially
 	content.hide();
-	$('#SelectMenu').find(":selected").css({'background-color':'#7961aa','color':'#fff'});
+	$('#SelectMenu, #SelectMenu2').find(":selected").css({'background-color':'#7961aa','color':'#fff'});
 	// drop down menu - on change show the selected div
-	$('#SelectMenu').on('change', function() {
+	$('#SelectMenu, #SelectMenu2').on('change', function() {
 	  content.hide();
 	  showDiv(this.value);
 	  //change background of selected item (hack for IE styles)
@@ -19,11 +19,11 @@ $(window).load(function() {
 		var thisContent = $('#'+divID).find('.expandedContent')
 		if ($(thisContent).is(':visible')) {
 			thisContent.slideUp("slow");
-			$('#'+divID).find('.header .expand img').attr('src', 'plus.png');
+			$('img.expandImage').attr('src', 'plus.png');
 		}
 		else {
 			content.not(thisContent).slideUp("slow", function() {
-				$('#'+divID).parent().find('.header .expand img').attr('src', 'plus.png');
+				$('img.expandImage').attr('src', 'plus.png');
 			});
 			thisContent.slideDown("slow", function() {
 				$('#'+divID).find('.header .expand img').attr('src', 'minus.png');
@@ -31,15 +31,14 @@ $(window).load(function() {
 				$('html, body').animate({
 					scrollTop: $("#"+divID).offset().top
 				}, 1000);
-				// change drop down menu's selected option  
-				$('#SelectMenu').val(divID);
+				// change drop down menu to the default text  
+				$('#SelectMenu,#SelectMenu2').val('Select a State');
 			});
 		}
-	}	
-	
+	}
+		
 	// on click show the selected div
 	divs.click(function() {
 		showDiv($(this).attr('id'));
 	});
-	
 });
